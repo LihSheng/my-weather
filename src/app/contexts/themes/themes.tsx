@@ -11,7 +11,7 @@ import {
   useEffect,
 } from "react";
 
-interface ScreenClass {
+export interface ScreenClass {
   sm: boolean;
   md: boolean;
   lg: boolean;
