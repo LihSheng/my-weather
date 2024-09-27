@@ -21,6 +21,7 @@ export const Layout: FC<PropsWithChildren<LayoutProps>> = ({
         fontFamily: theme.typography.fontFamily,
         color: theme.palette.font.primary,
         backgroundSize: "cover",
+        minHeight: "100vh",
         gap: "1rem",
         paddingTop: "2rem",
         paddingBottom: "2rem",

@@ -3,6 +3,7 @@ export const light = {
     background: {
       primary: "rgba(255,255,255,0.3)",
       secondary: "rgba(92, 45, 145,0.3)",
+      error: "rgba(243, 74, 66, 0.3)",
     },
     backgroundImage: `url("static/images/bg-light.png")`,
     font: {

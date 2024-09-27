@@ -8,8 +8,8 @@ interface SearchBarProps {
 }
 
 export const SearchBar: FC<SearchBarProps> = ({
-  location: city,
-  setLocation: setCity,
+  location,
+  setLocation,
   onSearch,
 }) => {
   const { isLightMode, setIsLightMode, theme } = useTheme();
@@ -44,10 +44,11 @@ export const SearchBar: FC<SearchBarProps> = ({
   return (
     <div style={formStyle}>
       <input
-        value={city}
-        onChange={(e) => setCity(e.target.value)}
+        value={location}
+        onChange={(e) => setLocation(e.target.value)}
         style={inputStyle}
         type="text"
+        placeholder="Enter your location"
       />
 
       <button style={buttonStyle} onClick={onSearch}>

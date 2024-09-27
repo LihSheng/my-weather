@@ -3,6 +3,7 @@ export const dark = {
     background: {
       primary: "rgba(0,0,0,0.3)",
       secondary: "rgba(47, 12, 79, 0.3)",
+      error: "rgba(243, 74, 66, 0.3)",
     },
     backgroundImage: `url("static/images/bg-dark.png")`,
     font: {
