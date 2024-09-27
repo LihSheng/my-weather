@@ -9,7 +9,7 @@ export const Layout: FC<PropsWithChildren<LayoutProps>> = ({
   children,
   style,
 }) => {
-  const { theme } = useTheme();
+  const { theme, screenSize } = useTheme();
 
   return (
     <div
@@ -21,13 +21,11 @@ export const Layout: FC<PropsWithChildren<LayoutProps>> = ({
         fontFamily: theme.typography.fontFamily,
         color: theme.palette.font.primary,
         backgroundSize: "cover",
-        minHeight: "100vh",
-        minWidth: "100vw",
-        height: "100vh",
-        overflow: "hidden",
         gap: "1rem",
-        paddingLeft: "10rem",
-        paddingRight: "10rem",
+        paddingTop: "2rem",
+        paddingBottom: "2rem",
+        paddingLeft: screenSize.sm ? "2rem" : screenSize.md ? "5rem" : "10rem",
+        paddingRight: screenSize.sm ? "2rem" : screenSize.md ? "5rem" : "10rem",
       }}
     >
       {children}

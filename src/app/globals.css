@@ -28,23 +28,3 @@ body {
   }
 }
 
-@media (max-width: 1024px) {
-  div {
-    padding-left: 5rem;
-    padding-right: 5rem;
-  }
-}
-
-@media (max-width: 768px) {
-  div {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  div {
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-}

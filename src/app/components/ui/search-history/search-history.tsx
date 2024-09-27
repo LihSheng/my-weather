@@ -34,7 +34,7 @@ export const SearchHistoryList: FC<SearchHistoryListProps> = ({
           flex: "1",
         }}
       >
-        Search History
+        {`Search History`}
       </p>
       {history.map((history, index) => (
         <SearchHistoryRecord

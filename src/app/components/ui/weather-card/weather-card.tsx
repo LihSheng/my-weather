@@ -6,7 +6,7 @@ interface WeatherCardProps {
 }
 
 export const WeatherCard: FC<WeatherCardProps> = ({ weather }) => {
-  const { isLightMode, theme } = useTheme();
+  const { isLightMode, theme, screenSize } = useTheme();
 
   const details: CSSProperties = {
     margin: "0.5rem 0",
@@ -24,13 +24,44 @@ export const WeatherCard: FC<WeatherCardProps> = ({ weather }) => {
     margin: 0,
   };
 
-  const weatherInfo: CSSProperties = {
-    fontFamily: theme.typography.fontFamily,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
-    flex: 1,
+  const weatherInfo: CSSProperties = screenSize.sm
+    ? {
+        fontFamily: theme.typography.fontFamily,
+        display: "flex",
+        justifyContent: "space-between",
+        width: "100%",
+        flex: 1,
+      }
+    : screenSize.md
+    ? {
+        fontFamily: theme.typography.fontFamily,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        width: "100%",
+        flex: 1,
+      }
+    : {
+        fontFamily: theme.typography.fontFamily,
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        width: "100%",
+        flex: 1,
+      };
+
+  const weatherImage: CSSProperties = {
+    overflow: "auto",
+    position: "absolute",
+    ...(screenSize.sm
+      ? { display: "none" }
+      : screenSize.md
+      ? { width: "20rem", left: "19rem", bottom: "5rem" }
+      : {
+          width: "23rem",
+          left: "15rem",
+          bottom: "1rem",
+        }),
   };
 
   const formatDate = (timestamp: number) => {
@@ -59,7 +90,7 @@ export const WeatherCard: FC<WeatherCardProps> = ({ weather }) => {
     },
     name: location,
     dt: time,
-    sys: { country, sunset },
+    sys: { country },
   } = weather;
 
   return (
@@ -71,8 +102,20 @@ export const WeatherCard: FC<WeatherCardProps> = ({ weather }) => {
           width: "100%",
         }}
       >
-        <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
-          <p style={{ margin: 0, color: theme.palette.font.primary }}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            flex: 1,
+          }}
+        >
+          <p
+            style={{
+              margin: 0,
+              color: theme.palette.font.primary,
+              fontFamily: theme.typography.fontFamily,
+            }}
+          >
             {`Today's weather`}
           </p>
           <p style={temperature}>{Math.round(temp)}°</p>
@@ -81,12 +124,16 @@ export const WeatherCard: FC<WeatherCardProps> = ({ weather }) => {
           </p>
         </div>
 
-        <div style={weatherImage}>
-          <img
-            src={`static/images/${time < sunset ? "sun" : "cloud"}.png`}
-            alt="weather icon"
-          />
-        </div>
+        <img
+          style={weatherImage}
+          src={`static/images/cloud.png`}
+          alt="weather icon"
+        />
+        <img
+          style={weatherImage}
+          src={`static/images/sun.png`}
+          alt="weather icon"
+        />
       </div>
       <div style={weatherInfo}>
         <p style={details}>
@@ -100,18 +147,9 @@ export const WeatherCard: FC<WeatherCardProps> = ({ weather }) => {
   );
 };
 
-const weatherImage: CSSProperties = {
-  display: "flex",
-  overflow: "auto",
-  width: "10rem",
-  height: "auto",
-  marginLeft: "1rem",
-  float: "right",
-  margin: "0.5rem",
-};
-
 const weatherCard: CSSProperties = {
   display: "flex",
+  position: "relative",
   flexDirection: "column",
   justifyContent: "space-between",
   alignItems: "center",

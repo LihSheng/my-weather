@@ -50,7 +50,7 @@ const dummyData = {
   cod: 200,
 };
 export const Weather = () => {
-  const { isLightMode, setIsLightMode, theme } = useTheme();
+  const { theme, screenSize } = useTheme();
 
   const [location, setLocation] = useState<string>("");
   const [weather, setWeather] = useState<Record<string, any> | null>(dummyData);
@@ -61,7 +61,7 @@ export const Weather = () => {
     { location: "Johor,MY", time: "9/27/2024, 4:50:21 PM" },
     { location: "Johor,MY", time: "9/27/2024, 4:50:21 PM" },
   ]);
-
+  console.log(screenSize);
   useEffect(() => {
     console.log(location);
   }, [location]);
@@ -73,8 +73,6 @@ export const Weather = () => {
   const fetchData = async (inputLocation: string) => {
     try {
       await weatherApi.get(inputLocation).then((data) => {
-        console.log("Data: ", data);
-
         if (data.cod !== 200) {
           alert(data.message);
           return;
@@ -97,7 +95,6 @@ export const Weather = () => {
 
   const onSearch = useCallback(async () => {
     try {
-      console.log("Searching for location: ", location);
       fetchData(location);
     } catch (error) {
       console.error(error);
@@ -105,28 +102,7 @@ export const Weather = () => {
   }, [location]);
 
   return (
-    <Layout style={{ paddingTop: "1rem" }}>
-      <div
-        id="linksToVisitPage"
-        onClick={() => {
-          setIsLightMode(!isLightMode);
-        }}
-        style={{
-          position: "fixed",
-          top: "0px",
-          right: "0px",
-          width: "3rem",
-          height: "3rem",
-          borderRadius: "50%",
-          backgroundColor: theme.palette.background.primary,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          cursor: "pointer",
-        }}
-      >
-        {isLightMode ? "🌙" : "☀️"}
-      </div>
+    <Layout>
       <SearchBar
         location={location}
         setLocation={setLocation}
@@ -135,6 +111,7 @@ export const Weather = () => {
       <div
         style={{
           display: "flex",
+          marginTop: "6rem",
           flexDirection: "column",
           justifyContent: "flex-start",
           backgroundColor: theme.palette.background.primary,

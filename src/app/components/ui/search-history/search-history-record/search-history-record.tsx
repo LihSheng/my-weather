@@ -14,7 +14,7 @@ export const SearchHistoryRecord: FC<SearchHistoryRecordProps> = ({
   onReFetch,
   onDelete,
 }) => {
-  const { isLightMode, theme } = useTheme();
+  const { isLightMode, theme, screenSize } = useTheme();
 
   const searchHistoryRecord: CSSProperties = {
     backgroundColor: theme.palette.background.primary,
@@ -26,17 +26,31 @@ export const SearchHistoryRecord: FC<SearchHistoryRecordProps> = ({
 
   const buttonStyle: CSSProperties = {
     cursor: "pointer",
-    padding: "0.5rem",
     border: "none",
     borderRadius: "50%",
     backgroundColor: theme.palette.background.primary,
     display: "flex",
-    alignItems: "center", // Center align the icon
+    width: "3rem",
+    height: "3rem",
+    alignItems: "center",
     justifyContent: "center",
-    width: "2rem",
-    height: "2rem",
   };
 
+  const detailInfo: CSSProperties = screenSize.sm
+    ? {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        alignItems: "flex-start",
+        width: "80%",
+      }
+    : {
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        alignItems: "center",
+        width: "80%",
+      };
   return (
     <div style={searchHistoryRecord}>
       <div
@@ -47,27 +61,25 @@ export const SearchHistoryRecord: FC<SearchHistoryRecordProps> = ({
           width: "100%",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            width: "80%",
-          }}
-        >
-          <p style={{ margin: 0 }}>{location}</p>
-          <p style={{ margin: 0 }}>{time}</p>
+        <div style={detailInfo}>
+          <p
+            style={{
+              display: "flex",
+            }}
+          >
+            {location}
+          </p>
+          <p style={{ display: "flex", paddingRight: "1rem" }}>{time}</p>
         </div>
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
-            width: "15%",
-            padding: "0 2rem",
           }}
         >
           <button onClick={onReFetch} style={buttonStyle}>
             <img
+              style={{ width: "1.5rem" }}
               src={`static/images/search-${isLightMode ? "dark" : "light"}.png`}
               alt="search icon"
             />
@@ -77,6 +89,7 @@ export const SearchHistoryRecord: FC<SearchHistoryRecordProps> = ({
             style={{ ...buttonStyle, marginLeft: "0.5rem" }}
           >
             <img
+              style={{ width: "1.5rem" }}
               src={`static/images/dustbin-${
                 isLightMode ? "dark" : "light"
               }.png`}

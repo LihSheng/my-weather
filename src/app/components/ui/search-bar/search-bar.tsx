@@ -12,7 +12,7 @@ export const SearchBar: FC<SearchBarProps> = ({
   setLocation: setCity,
   onSearch,
 }) => {
-  const { theme } = useTheme();
+  const { isLightMode, setIsLightMode, theme } = useTheme();
 
   const inputStyle: React.CSSProperties = {
     width: "100%",
@@ -23,11 +23,11 @@ export const SearchBar: FC<SearchBarProps> = ({
 
   const formStyle: React.CSSProperties = {
     display: "flex",
-    flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     gap: "1rem",
     maxWidth: "100%",
+    padding: "0",
   };
 
   const buttonStyle: React.CSSProperties = {
@@ -35,7 +35,9 @@ export const SearchBar: FC<SearchBarProps> = ({
     height: "100%",
     width: "4rem",
     cursor: "pointer",
-    backgroundColor: "#5c2d91",
+    backgroundColor: isLightMode
+      ? theme.palette.background.primary
+      : theme.palette.background.secondary,
     borderRadius: "0.5rem",
   };
 
@@ -50,6 +52,15 @@ export const SearchBar: FC<SearchBarProps> = ({
 
       <button style={buttonStyle} onClick={onSearch}>
         <img src="static/images/search-icon.png" alt="Search" />
+      </button>
+
+      <button
+        style={buttonStyle}
+        onClick={() => {
+          setIsLightMode((prev) => !prev);
+        }}
+      >
+        {isLightMode ? "🌙" : "☀️"}
       </button>
     </div>
   );
